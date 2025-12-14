@@ -1,0 +1,17 @@
+@import 'tailwindcss';
+
+.company-overview {
+	@apply space-y-6;
+}
+
+.stock-header-section {
+	@apply mb-6;
+}
+
+.tab-navigation-section {
+	@apply mb-6;
+}
+
+.tab-content-section {
+	@apply min-h-[400px];
+}

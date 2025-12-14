@@ -1,0 +1,48 @@
+# Stage 1: Builder
+FROM oven/bun:1-alpine AS builder
+
+WORKDIR /app
+
+# Copy package files
+COPY package.json bun.lock ./
+
+# Install ALL dependencies (including devDependencies for build)
+RUN bun install --frozen-lockfile
+
+# Copy source code
+COPY . .
+
+# Build the SvelteKit app
+RUN bun run build
+
+# Stage 2: Runtime
+FROM oven/bun:1-alpine
+
+WORKDIR /app
+
+# Copy package files
+COPY package.json bun.lock ./
+
+# Install ONLY production dependencies
+RUN bun install --frozen-lockfile --production
+
+# Copy built app from builder
+COPY --from=builder /app/build ./build
+COPY --from=builder /app/package.json ./
+
+# Create non-root user for security
+RUN addgroup -g 1000 appuser && \
+    adduser -D -u 1000 -G appuser appuser && \
+    chown -R appuser:appuser /app
+
+USER appuser
+
+# Expose Node.js server port
+EXPOSE 3000
+
+# Set production environment
+ENV NODE_ENV=production
+ENV PORT=3000
+
+# Run the built SvelteKit app
+CMD ["bun", "run", "build/index.js"]

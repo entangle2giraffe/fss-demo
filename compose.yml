@@ -1,0 +1,41 @@
+services:
+  api:
+    build:
+      context: ./stock-ingestor
+      dockerfile: Dockerfile.dev
+    ports:
+      - "8080:8080"  # Direct access for debugging
+    volumes:
+      - ./stock-ingestor:/app
+      - /app/tmp
+    restart: unless-stopped
+    environment:
+      - GO_ENV=development
+    networks:
+      - stock_dashboard
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.dev
+    ports:
+      - "5173:5173"  # Direct access for debugging
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+      - /app/.svelte-kit
+    depends_on:
+      - api
+    restart: unless-stopped
+    environment:
+      - GO_STOCKS_URL=http://api:8080
+      - GO_API_KEY=891c2e685f27635a5c204c0f3a34943d
+      - NODE_ENV=development
+      - VITE_DEV_PORT=5173
+      - VITE_CORS_ORIGIN=https://localhost
+    networks:
+      - stock_dashboard
+
+networks:
+  stock_dashboard:
+    driver: bridge

@@ -1,0 +1,15 @@
+---
+server:
+  port: 8080
+  api_key: your-server-api-key-here
+
+database:
+  host: tsdb
+  port: 5432
+  user: postgres
+  password: password
+  dbname: screener
+
+alphavantage:
+  apiKey: YOUR_ALPHAVANTAGE_API_KEY_HERE
+  uri: https://www.alphavantage.co/query?

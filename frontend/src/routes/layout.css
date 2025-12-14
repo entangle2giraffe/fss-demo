@@ -1,0 +1,22 @@
+@import 'tailwindcss';
+@import 'tailwindcss/theme' theme(dark);
+
+:root {
+	--chart-green: #10b981;
+	--chart-red: #ef4444;
+	--chart-grid: #e5e7eb;
+	--chart-text: #6b7280;
+	--chart-crosshair: #9ca3af;
+	--tooltip-bg: rgba(0, 0, 0, 0.8);
+	--tooltip-text: white;
+}
+
+.dark {
+	--chart-green: #34d399;
+	--chart-red: #f87171;
+	--chart-grid: #374151;
+	--chart-text: #9ca3af;
+	--chart-crosshair: #6b7280;
+	--tooltip-bg: rgba(255, 255, 255, 0.9);
+	--tooltip-text: black;
+}
