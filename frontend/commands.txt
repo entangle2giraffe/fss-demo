@@ -1,3 +1,8 @@
+Set up
+npm install
+or
+bun install
+
 # Hot reloading
 npm run dev
 or
