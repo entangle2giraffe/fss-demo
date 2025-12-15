@@ -1,0 +1,16 @@
+# Docker Compose
+docker compose up -d
+docker compose down
+docker compose logs
+docker compose ps
+docker compose build
+docker compsoe up -d --build
+
+## For specific container
+docker compose up <container> -d
+docker compose down <container> -d
+docker compose logs <container>
+
+
+## Options
+-d for detached mode (quiet mode)

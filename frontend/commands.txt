@@ -1,0 +1,9 @@
+# Hot reloading
+npm run dev
+or
+bun run dev
+
+# Build
+npm run build
+and
+npm run preview

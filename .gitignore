@@ -26,3 +26,6 @@ backup/
 *.pdfsync
 *.dvi
 *.ps
+
+// Ignore Mac
+.DS_Store

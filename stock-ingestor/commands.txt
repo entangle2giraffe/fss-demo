@@ -1,0 +1,6 @@
+# Go run cmd
+go run cmd/api/main.go
+
+# Hot reloading
+go install github.com/air-verse/air@latest
+air
