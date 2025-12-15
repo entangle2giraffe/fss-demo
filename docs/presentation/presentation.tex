@@ -1,0 +1,782 @@
+\documentclass{beamer}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{fontawesome5}
+
+% Theme and Colors
+\usetheme{Madrid}
+\usecolortheme{default}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{footline}[page number]
+
+% Define colors for code
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstset{
+    backgroundcolor=\color{backcolour},
+    commentstyle=\color{codegray},
+    keywordstyle=\color{codepurple},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codegreen},
+    basicstyle=\ttfamily\small,
+    breakatwhitespace=false,
+    breaklines=true,
+    captionpos=b,
+    keepspaces=true,
+    numbers=left,
+    numbersep=5pt,
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    tabsize=2
+}
+
+% Title Page
+\title{Modern Software Development}
+\subtitle{A Simple Guide to Today's Technology}
+\author{Technical Concepts Explained Simply}
+\date{\today}
+
+\begin{document}
+
+\frame{\titlepage}
+
+% Table of Contents
+\begin{frame}
+\frametitle{What We'll Learn Today}
+\begin{itemize}
+    \item \textbf{Docker:} Shipping software like shipping boxes
+    \item \textbf{SSR (Server-Side Rendering):} Where should your code run?
+    \item \textbf{SvelteKit:} Modern web framework
+    \item \textbf{Go vs Python:} Different approaches to writing programs
+\end{itemize}
+\end{frame}
+
+% ============================================================================
+% SECTION 1: DOCKER
+% ============================================================================
+\section{Docker: Containers Explained}
+
+\begin{frame}
+\frametitle{Think of Docker Like Shipping}
+\begin{center}
+    \Large \textbf{Traditional Shipping Problem}
+\end{center}
+
+Before containers, shipping goods was messy:
+\begin{itemize}
+    \item Books packed differently than clothes
+    \item Different sizes required different trucks
+    \item Items could get damaged during transport
+    \item No standard way to pack things
+\end{itemize}
+
+\vspace{1cm}
+
+\begin{center}
+    \textbf{Solution:} The shipping container (standardized box)
+    \begin{itemize}
+        \item All items fit in same sized box
+        \item Easy to stack and transport
+        \item Protected from damage
+        \item Works on ships, trucks, trains
+    \end{itemize}
+\end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{Docker Works the Same Way}
+
+\textbf{Docker Container} = A box that contains everything your software needs:
+\begin{itemize}
+    \item Your code
+    \item Required libraries
+    \item Operating system basics
+    \item Configuration files
+\end{itemize}
+
+\vspace{1cm}
+
+\textbf{Why this matters:}
+\begin{itemize}
+    \item \textcolor{green}{Works the same on your computer, my computer, or a server}
+    \item \textcolor{green}{No more ``It works on my machine'' problems}
+    \item \textcolor{green}{Easy to update and ship out}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Docker: The Real-World Benefit}
+
+\begin{columns}
+\column{0.5\textwidth}
+\textbf{WITHOUT Docker:}
+\begin{itemize}
+    \item Developer installs software locally
+    \item Moves to production server
+    \item Server has different setup
+    \item Software breaks
+    \item Hours spent debugging
+\end{itemize}
+
+\column{0.5\textwidth}
+\textbf{WITH Docker:}
+\begin{itemize}
+    \item Developer creates container
+    \item Container works everywhere
+    \item Server runs exact same container
+    \item Everything works
+    \item Deploy in minutes
+\end{itemize}
+\end{columns}
+
+\vspace{1cm}
+
+\textbf{Think of it:} Like mailing a self-contained lunch box that works anywhere, instead of just mailing ingredients.
+\end{frame}
+
+\begin{frame}
+\frametitle{Docker Vocabulary Made Simple}
+
+\begin{description}
+    \item[\textbf{Image}] A template or blueprint (like a recipe)
+    \item[\textbf{Container}] A running copy of that template (like the cooked meal)
+    \item[\textbf{Dockerfile}] Instructions for building the image (the recipe itself)
+    \item[\textbf{Docker Hub}] Library of pre-made images (cookbook)
+\end{description}
+
+\vspace{1cm}
+
+\textbf{Analogy:}
+\begin{itemize}
+    \item Image = Recipe
+    \item Container = Meal you cooked from that recipe
+    \item Dockerfile = How you write the recipe
+    \item Docker Hub = Book of recipes
+\end{itemize}
+\end{frame}
+
+% ============================================================================
+% SECTION 2: SERVER-SIDE RENDERING (SSR)
+% ============================================================================
+\section{SSR: Where Should Code Run?}
+
+\begin{frame}
+\frametitle{The Server vs Browser Dilemma}
+
+Modern websites need to decide: \textbf{Where does the work happen?}
+
+\vspace{1cm}
+
+\begin{columns}
+\column{0.5\textwidth}
+\textbf{Browser (Client)}
+\begin{itemize}
+    \item Your computer
+    \item User's phone
+    \item Software runs here
+    \item Faster response
+    \item More processing power needed on device
+\end{itemize}
+
+\column{0.5\textwidth}
+\textbf{Server (Cloud)}
+\begin{itemize}
+    \item Powerful computer far away
+    \item Software runs here
+    \item Works on slow devices
+    \item Requires internet
+    \item Less power needed locally
+\end{itemize}
+\end{columns}
+\end{frame}
+
+\begin{frame}
+\frametitle{Server-Side Rendering (SSR) Explained}
+
+\textbf{What is SSR?}
+
+The server does the heavy work BEFORE sending data to your browser.
+
+\vspace{1cm}
+
+\textbf{Real-World Analogy:}
+
+\begin{description}
+    \item[\textbf{Restaurant Kitchen (Server)}] Prepares your meal completely
+    \item[\textbf{Your Dining Room (Browser)}] Receives a finished, hot meal
+    \item[\textbf{Result}] Fast experience, ready to eat immediately
+\end{description}
+
+\vspace{1cm}
+
+\textbf{Without SSR:}
+\begin{itemize}
+    \item Browser receives empty plate
+    \item Browser must cook the meal
+    \item Takes longer
+    \item User waits more
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{SSR Benefits for Different Users}
+
+\textbf{Who benefits from SSR?}
+
+\begin{itemize}
+    \item \textcolor{green}{\textbf{Slow internet users:}} Less data to download
+    \item \textcolor{green}{\textbf{Mobile users:}} Less work for phone battery
+    \item \textcolor{green}{\textbf{Old devices:}} Don't need powerful hardware
+    \item \textcolor{green}{\textbf{SEO (Google search):}} Better for search engines
+\end{itemize}
+
+\vspace{1cm}
+
+\textbf{Why companies like SSR:}
+\begin{itemize}
+    \item Users see content faster
+    \item Better search engine ranking
+    \item Works better globally
+    \item Better for all devices
+\end{itemize}
+\end{frame}
+
+% ============================================================================
+% SECTION 3: SVELTEKIT
+% ============================================================================
+\section{Modern Framework: SvelteKit}
+
+\begin{frame}
+\frametitle{What Are Web Frameworks?}
+
+\textbf{A Framework:} A set of ready-made tools for building websites
+
+\vspace{1cm}
+
+\textbf{Think of it like building a house:}
+\begin{itemize}
+    \item Without framework: You make bricks, shape wood, mix cement
+    \item With framework: Pre-made walls, doors, windows ready to assemble
+\end{itemize}
+
+\vspace{1cm}
+
+\textbf{SvelteKit:}
+\begin{itemize}
+    \item Helps you build modern, fast websites
+    \item Includes SSR capabilities
+    \item Provides reusable components
+    \item Handles routing (page navigation)
+    \item Optimizes for users
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{SvelteKit: The Simple Framework}
+
+\textbf{SvelteKit's Philosophy:} Write less code, do more
+
+\vspace{1cm}
+
+\begin{columns}
+\column{0.5\textwidth}
+\textbf{What makes it simple:}
+\begin{itemize}
+    \item Smaller file sizes
+    \item Less boilerplate
+    \item Reactive by default
+    \item Clean syntax
+\end{itemize}
+
+\column{0.5\textwidth}
+\textbf{Best for:}
+\begin{itemize}
+    \item Quick prototypes
+    \item Small teams
+    \item Performance-critical apps
+    \item Learning web dev
+\end{itemize}
+\end{columns}
+
+\vspace{1cm}
+
+\textbf{Analogy:} Like a small, nimble sailboat - fast and responsive
+\end{frame}
+
+% ============================================================================
+% SECTION 4: GO LANGUAGE
+% ============================================================================
+\section{Go: The Language We Use}
+
+\begin{frame}
+\frametitle{What is Go?}
+
+\textbf{Go:} A modern programming language designed for servers and APIs
+
+\vspace{1cm}
+
+\textbf{Go's Philosophy:} Simplicity, speed, and reliability
+
+\vspace{1cm}
+
+\textbf{Key characteristics:}
+\begin{itemize}
+    \item \textcolor{green}{\textbf{Super fast}} - Runs at incredible speeds
+    \item \textcolor{green}{\textbf{Simple syntax}} - Easy to read and understand
+    \item \textcolor{green}{\textbf{Compiled}} - Turns into fast machine code
+    \item \textcolor{green}{\textbf{Perfect for servers}} - Handles thousands of users
+    \item \textcolor{green}{\textbf{Small programs}} - Easy to package
+\end{itemize}
+
+\vspace{1cm}
+
+\textbf{Why we chose Go:}
+\begin{itemize}
+    \item Perfect for building APIs (like our Fibers backend)
+    \item Containerizes beautifully with Docker
+    \item Extremely reliable and stable
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{How Go Works: Compiled vs Interpreted}
+
+\textbf{Three different approaches:}
+
+\vspace{1cm}
+
+\begin{description}
+    \item[\textbf{Go (Compiled)}] 
+    \begin{itemize}
+        \item Converts code to machine language BEFORE running
+        \item Like baking a cake completely before serving
+        \item Super fast when it runs
+        \item Must rebuild for each operating system
+    \end{itemize}
+    
+    \vspace{0.5cm}
+    
+    \item[\textbf{Python (Interpreted)}]
+    \begin{itemize}
+        \item Reads and runs code line by line
+        \item Like cooking while guests watch
+        \item Slower execution
+        \item Works on any computer without rebuilding
+    \end{itemize}
+    
+    \vspace{0.5cm}
+    
+    \item[\textbf{Java (Compiled + Interpreted)}]
+    \begin{itemize}
+        \item Compiles to middle format
+        \item Runs in special environment (JVM)
+        \item Medium speed
+        \item Complex setup
+    \end{itemize}
+\end{description}
+\end{frame}
+
+\begin{frame}
+\frametitle{Go Compilation Process}
+
+\textbf{How Go turns code into a fast program:}
+
+\vspace{1cm}
+
+\begin{enumerate}
+    \item \textbf{You write Go code}
+    \begin{itemize}
+        \item Simple, readable syntax
+    \end{itemize}
+    \vspace{0.3cm}
+    
+    \item \textbf{Go compiler reads it}
+    \begin{itemize}
+        \item Checks for errors
+        \item Optimizes the code
+    \end{itemize}
+    \vspace{0.3cm}
+    
+    \item \textbf{Converts to machine code}
+    \begin{itemize}
+        \item Native instructions for the CPU
+        \item Specific to the operating system
+    \end{itemize}
+    \vspace{0.3cm}
+    
+    \item \textbf{Creates executable file}
+    \begin{itemize}
+        \item Standalone program
+        \item No extra dependencies needed
+        \item Ready to run
+    \end{itemize}
+\end{enumerate}
+
+\vspace{1cm}
+
+\textbf{Result:} Fast, reliable program that's easy to distribute
+\end{frame}
+
+\begin{frame}
+\frametitle{Go vs Python: Speed Comparison}
+
+\textbf{Why Go is faster:}
+
+\vspace{1cm}
+
+\begin{columns}
+\column{0.5\textwidth}
+\textbf{Go (Compiled)}
+\begin{itemize}
+    \item Code pre-processed
+    \item Direct machine instructions
+    \item Runs at CPU speed
+    \item Minimal overhead
+    \item \textcolor{green}{\textbf{VERY FAST}}
+\end{itemize}
+
+\column{0.5\textwidth}
+\textbf{Python (Interpreted)}
+\begin{itemize}
+    \item Code read line by line
+    \item Decisions made while running
+    \item Translation overhead
+    \item Extra interpretation layer
+    \item \textcolor{orange}{\textbf{SLOWER}}
+\end{itemize}
+\end{columns}
+
+\vspace{1cm}
+
+\textbf{Real world example:}
+\begin{itemize}
+    \item Go handles 10,000 users: Still fast
+    \item Python handles 1,000 users: Gets slow
+    \item Go uses 50MB RAM: Light and lean
+    \item Python uses 500MB RAM: Heavy
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Understanding Composition: Go's Way}
+
+\textbf{Go Example: Building a Dog}
+
+\begin{lstlisting}[language=Go, caption=Go Composition Example]
+type Animal struct {
+    Name string
+}
+
+func (a Animal) Speak() string {
+    return "Some sound"
+}
+
+type Dog struct {
+    Animal  // Include Animal in Dog
+    Breed string
+}
+
+// Override the Speak method
+func (d Dog) Speak() string {
+    return "Woof!"
+}
+\end{lstlisting}
+
+\textbf{How it works:}
+\begin{itemize}
+    \item Dog ``contains'' an Animal
+    \item Dog gets Animal's Name field
+    \item Dog overrides the Speak method
+    \item Simple and direct
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Go Advantages for Backend Development}
+
+\textbf{Why Go is perfect for our backend:}
+
+\vspace{1cm}
+
+\begin{itemize}
+    \item \textcolor{green}{\textbf{Lightning Speed}} - Compiled code runs super fast
+    \item \textcolor{green}{\textbf{Low Memory}} - Uses minimal resources
+    \item \textcolor{green}{\textbf{Easy Concurrency}} - Handles many users simultaneously
+    \item \textcolor{green}{\textbf{Simple Syntax}} - Easy to write and understand
+    \item \textcolor{green}{\textbf{Cross-Platform}} - Runs on Linux, Windows, Mac
+    \item \textcolor{green}{\textbf{Docker Friendly}} - Creates tiny, fast containers
+    \item \textcolor{green}{\textbf{Single Binary}} - One file to deploy
+\end{itemize}
+
+\vspace{1cm}
+
+\textbf{Fibers Framework:}
+\begin{itemize}
+    \item Built in Go for maximum speed
+    \item Perfect for building APIs
+    \item Minimal overhead
+\end{itemize}
+\end{frame}
+
+% ============================================================================
+% SECTION 5: PUTTING IT TOGETHER
+% ============================================================================
+\section{Modern Development Stack}
+
+\begin{frame}
+\frametitle{How Everything Works Together}
+
+\textbf{A typical modern web application:}
+
+\vspace{1cm}
+
+\begin{enumerate}
+    \item \textbf{Backend (Server):} Written in Go or Python
+    \begin{itemize}
+        \item Handles business logic
+        \item Stores data safely
+        \item Runs in Docker containers
+    \end{itemize}
+    \vspace{0.5cm}
+    
+    \item \textbf{Frontend (Website):} Built with SvelteKit
+    \begin{itemize}
+        \item Uses SSR for fast loading
+        \item Beautiful user interface
+        \item Runs in Docker containers
+    \end{itemize}
+    \vspace{0.5cm}
+    
+    \item \textbf{Deployment:} Docker containers everywhere
+    \begin{itemize}
+        \item Same containers on developer's computer and server
+        \item Easy to scale
+        \item Easy to update
+    \end{itemize}
+\end{enumerate}
+\end{frame}
+
+\begin{frame}
+\frametitle{SvelteKit + Go Fibers: A Real Example}
+
+\textbf{What is Fibers?}
+
+Fibers is a lightweight, fast web framework for Go - perfect for building APIs.
+
+\vspace{1cm}
+
+\textbf{How they work together:}
+
+\begin{description}
+    \item[\textbf{Go Fibers Backend}] 
+    \begin{itemize}
+        \item Receives requests from SvelteKit
+        \item Processes business logic
+        \item Talks to databases
+        \item Returns data as JSON
+        \item Very fast and lightweight
+    \end{itemize}
+    
+    \vspace{0.5cm}
+    
+    \item[\textbf{SvelteKit Frontend}]
+    \begin{itemize}
+        \item Displays beautiful interface
+        \item Sends user requests to Fibers backend
+        \item Receives JSON data
+        \item Shows updated content instantly
+    \end{itemize}
+\end{description}
+\end{frame}
+
+\begin{frame}
+\frametitle{SvelteKit + Go Fibers Architecture}
+
+\textbf{Communication Flow:}
+
+\vspace{0.5cm}
+
+\begin{enumerate}
+    \item \textbf{User clicks button} in SvelteKit
+    \vspace{0.2cm}
+    
+    \item \textbf{SvelteKit sends request} to Go Fibers API
+    \begin{itemize}
+        \item Example: ``Give me user data''
+        \item Sent as HTTP request
+    \end{itemize}
+    \vspace{0.2cm}
+    
+    \item \textbf{Go Fibers processes} the request
+    \begin{itemize}
+        \item Checks permissions
+        \item Queries database
+    \end{itemize}
+    \vspace{0.2cm}
+    
+    \item \textbf{Fibers sends back JSON} response
+    \begin{itemize}
+        \item Pure data, lightweight and fast
+    \end{itemize}
+    \vspace{0.2cm}
+    
+    \item \textbf{SvelteKit updates display} instantly
+    \begin{itemize}
+        \item User sees fresh data
+        \item No page refresh needed
+    \end{itemize}
+\end{enumerate}
+\end{frame}
+
+\begin{frame}
+\frametitle{Why SvelteKit + Go Fibers Works Great}
+
+\textbf{Perfect Combination:}
+
+\begin{columns}
+\column{0.5\textwidth}
+\textbf{SvelteKit Strengths}
+\begin{itemize}
+    \item Beautiful UIs
+    \item Small bundle size
+    \item Fast rendering
+    \item Reactive updates
+    \item SSR support
+\end{itemize}
+
+\column{0.5\textwidth}
+\textbf{Go Fibers Strengths}
+\begin{itemize}
+    \item Lightning fast
+    \item Handles many users
+    \item Uses little memory
+    \item Easy to write
+    \item Great for APIs
+\end{itemize}
+\end{columns}
+
+\vspace{1cm}
+
+\textbf{Real-World Benefits:}
+\begin{itemize}
+    \item \textcolor{green}{\textbf{Speed}} - Both are optimized for performance
+    \item \textcolor{green}{\textbf{Scalability}} - Can handle thousands of users
+    \item \textcolor{green}{\textbf{Simplicity}} - Both use simple, clean code
+    \item \textcolor{green}{\textbf{Docker Friendly}} - Both containerize perfectly
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Architecture Diagram: SvelteKit + Go Fibers}
+
+\textbf{How the pieces fit together:}
+
+\vspace{1cm}
+
+\begin{center}
+\textbf{User's Browser}
+\begin{itemize}
+    \item SvelteKit App (beautiful interface)
+    \item Shows data, handles clicks
+\end{itemize}
+
+$\downarrow$ HTTP Requests (``Get my data'') $\downarrow$
+
+\textbf{Go Fibers Server}
+\begin{itemize}
+    \item Processes requests
+    \item Talks to database
+    \item Returns JSON
+\end{itemize}
+
+$\downarrow$ JSON Responses (data) $\downarrow$
+
+\textbf{User's Browser}
+\begin{itemize}
+    \item SvelteKit updates display
+    \item User sees changes instantly
+\end{itemize}
+\end{center}
+
+\vspace{1cm}
+
+\textbf{All wrapped in Docker:} Same containers everywhere!
+\end{frame}
+
+\begin{frame}
+\frametitle{Why This Stack Makes Sense}
+
+\textbf{Benefits of modern development:}
+
+\vspace{0.5cm}
+
+\begin{itemize}
+    \item \textcolor{green}{\textbf{Speed}} - Users see content fast (SSR)
+    \item \textcolor{green}{\textbf{Reliability}} - Everything works the same everywhere (Docker)
+    \item \textcolor{green}{\textbf{Flexibility}} - Choose the right tool for each part
+    \item \textcolor{green}{\textbf{Simplicity}} - Clean languages like Go
+    \item \textcolor{green}{\textbf{Performance}} - Optimized frameworks like SvelteKit
+    \item \textcolor{green}{\textbf{Easy Updates}} - Change and redeploy instantly
+\end{itemize}
+
+\vspace{1cm}
+
+\textbf{For non-technical people:}
+\begin{itemize}
+    \item Software works on all devices
+    \item Websites load super fast
+    \item Updates happen instantly
+    \item No more software compatibility issues
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Key Takeaways}
+
+\begin{enumerate}
+    \item \textbf{Docker} - Like shipping containers for software. Works everywhere.
+    
+    \vspace{0.5cm}
+    
+    \item \textbf{SSR} - Server does work first, sends finished product to you. Faster loading.
+    
+    \vspace{0.5cm}
+    
+    \item \textbf{SvelteKit} - Simple, lightweight, modern framework for websites.
+    
+    \vspace{0.5cm}
+    
+    \item \textbf{Go Language} - Compiled, super-fast language. Perfect for servers.
+    
+    \vspace{0.5cm}
+    
+    \item \textbf{Go Fibers} - Fast backend API framework. Built in Go.
+    
+    \vspace{0.5cm}
+    
+    \item \textbf{Go's Speed} - Compiled code is much faster than Python or Java.
+\end{enumerate}
+
+\vspace{1cm}
+
+\textbf{Together:} These create fast, reliable software that works everywhere.
+\end{frame}
+
+\begin{frame}
+\frametitle{Questions?}
+
+\begin{center}
+    \Large
+    
+    Thank you!
+    
+    \vspace{2cm}
+\end{center}
+\end{frame}
+
+\end{document}

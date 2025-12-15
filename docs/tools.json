@@ -1,0 +1,7 @@
+{
+  "tools": {
+    "docker": "https://www.docker.com/",
+    "go": "https://go.dev/",
+    "node": "https://nodejs.org/en/download"
+  }
+}
