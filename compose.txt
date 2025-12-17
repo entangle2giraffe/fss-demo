@@ -1,0 +1,37 @@
+# Docker
+Files location: {/Deploy/docker-compose}
+
+# Build image
+docker compose build
+docker compose build <container_name in docker-compose.yml>
+
+# Start Containers
+docker compose up -d
+docker compose up -d --build # Up with build
+-d is for detached mode
+
+# Stop Containers
+docker compose stop <container_name in docker-compose.yml>
+
+# Takedown Containers
+docker compose down
+
+# Remove Containers
+docker compose rm
+
+# Docker look at what running
+docker ps
+
+# Docker image lookup
+docker image ls
+
+# Docker logs
+docker compose logs
+docker compose logs <container_name in docker-compose.yml>
+
+# Go (Backend)
+go mod tidy # Install all packages
+go run <path to main.go>
+
+# Node (Frontend)
+npm install # Install all packages
